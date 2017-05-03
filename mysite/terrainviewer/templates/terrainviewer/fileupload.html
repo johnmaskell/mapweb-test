@@ -1,0 +1,19 @@
+{% extends 'meshviewer/basev2.html' %}
+{% block content %}
+<form action="model_form_upload" method="post" enctype="multipart/form-data" >
+{% csrf_token %}
+{{ form1.as_p }}
+{{ form.as_p }}
+
+<input type="submit" value="Select">
+</form>
+
+<p>
+{% if result != None %}
+{% load static %}
+
+<a href="{% get_static_prefix %}{{ result }}" >Download kml</a>
+
+{% endif %}
+</p>
+{% endblock %}
