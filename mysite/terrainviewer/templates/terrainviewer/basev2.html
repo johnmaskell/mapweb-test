@@ -67,17 +67,10 @@
 
     
     <div id="map" class="map"></div>
-    <form class="form-inline">
-      <label>Geometry type &nbsp;</label>
-      <select id="type">
 
-        <option value="Polygon">Polygon</option>
-        
-      </select>
-    </form>
-    <button onclick="myFunction()">Submit selection</button>
+    
     {% load static %}    
-    <script src="{%static 'terrainviewer/olscript_draw.js' %}"></script>
+    <script src="{%static 'terrainviewer/olscript_drawv2.js' %}"></script>
     {% block content %}
     {% endblock %}
 

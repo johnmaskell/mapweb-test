@@ -110,51 +110,16 @@ var testData = 4;
 draw.on('drawend',function(e){
 myPoly = (e.feature.getGeometry().getExtent());
 console.log(myPoly)
+var sPoly = String(Math.round(myPoly[0])) + "," + String(Math.round(myPoly[1]));
+
+console.log(sPoly);
+document.getElementById("id_myCoords").value = sPoly;
 });
 
 var csrftoken = getCookie('csrftoken');
-/**var frm = $('#myForm').val();**/
-
-
-function myFunction() {    
-//alert(myPoly);*/
 
 
 
-/**$('#myform').on('submit', function(event){**/
-    var test = document.getElementById('id_myRender');
-    
-    console.log(test.value);
-    console.log("Hello");
-    var myValue = JSON.stringify(test.value);
-    myPoly.push(myValue);
-    var arr = JSON.stringify([1, 2, 3, 4]);
-    var arr = JSON.stringify(myPoly);
-   
-    $.ajax({
-    headers: {
-        'Content-Type':'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
-    },
-        dataType: 'json',
-        method: 'POST',
-        url: '/terrainviewer/',
-        /**data: arr,**/
-        /**data: {'selection': test.value, 'myarray':arr},**/
-        data: arr,
-       
-        success: function (data) {
-             //this gets called when server returns an OK response
-             //alert("it worked!");
-        },
-        //error: function (data) {
-        //     alert("it didnt work");
-        //}
-    });
-};
-
-
-/**}**/
 
 
 

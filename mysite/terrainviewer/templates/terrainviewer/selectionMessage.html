@@ -1,0 +1,12 @@
+{% extends 'terrainviewer/basev2.html' %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data" onsubmit="myFunction()" id="myform">
+{% csrf_token %}
+{{ form1.as_p }}
+{{ form.as_p }}
+<input type="submit" value="Select">
+</form>
+{% if pageMessage != None %}
+<p>{{ pageMessage }}</p>
+{% endif %}
+{% endblock %}
