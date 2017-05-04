@@ -67,6 +67,7 @@ def user_map(request):
 
             if data_av:
                 pageMessage = "3D Terrain model available"
+                return HttpResponseRedirect('http://jmcoastal.co.uk')
             else:
                 pageMessage = "No 3D Terrain model available"
         
