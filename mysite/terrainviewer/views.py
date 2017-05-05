@@ -67,7 +67,7 @@ def user_map(request):
 
             if data_av:
                 pageMessage = "3D Terrain model available"
-                return HttpResponseRedirect('http://jmcoastal.co.uk')
+                return render(request,'terrainviewer/north_lakes_render.html')
             else:
                 pageMessage = "No 3D Terrain model available"
         

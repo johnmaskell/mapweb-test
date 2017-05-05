@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css">
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
 <script src="https://openlayers.org/en/v4.1.0/build/ol.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/proj4js-compressed.js"></script>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'terrainviewer/danddcssv2.css' %}" >
     
@@ -70,7 +71,7 @@
 
     
     {% load static %}    
-    <script src="{%static 'terrainviewer/olscript_drawv2.js' %}"></script>
+    <script src="{%static 'terrainviewer/olscript_sqdrag.js' %}"></script>
     {% block content %}
     {% endblock %}
 
