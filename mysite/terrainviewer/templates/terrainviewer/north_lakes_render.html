@@ -7,14 +7,15 @@
 <style>
     body { margin: 0; overflow: hidden; }
 </style>
+<script src="http://johnmaskell.pythonanywhere.com/terrainiewer/static/terrainviewer/three.min.js"></script>
+<script src="http://johnmaskell.pythonanywhere.com/terrainiewer/static/terrainviewer/TrackballControl.js"></script>
+<script src="http://johnmaskell.pythonanywhere.com/terrainiewer/static/terrainviewer/TerrainLoader.js"></script>
+
 </head>
 <body>
 <div id="webgl"></div>
 
-{% load static %}
-<script src="{%static 'terrainviewer/three.min.js' %}"></script>
-<script src="{%static 'terrainviewer/TrackballControls.js' %}"></script>
-<script src="{%static 'terrainviewer/TerrainLoader.js' %}"></script>
+
 
 <script>
     var width  = window.innerWidth,
@@ -29,13 +30,13 @@
     renderer.setSize(width, height);
 
     var terrainLoader = new THREE.TerrainLoader();
-    terrainLoader.load('C:/ThreeD_Mapping/tiff/north_lakes_reproj_clipped.bin', function(data) {
+    terrainLoader.load('http://johnmaskell.pythonanywhere.com/terrainiewer/documents/north_lakes_reproj_clipped.bin', function(data) {
         var geometry = new THREE.PlaneGeometry(60, 60, 299, 299);
         for (var i = 0, l = geometry.vertices.length; i < l; i++) {
             geometry.vertices[i].z = data[i] / 65535 * 10;
         }
         var material = new THREE.MeshPhongMaterial({
-           map: THREE.ImageUtils.loadTexture('C:/ThreeD_Mapping/tiff/north_lakes_terrain_v2.png')
+           map: THREE.ImageUtils.loadTexture('http://johnmaskell.pythonanywhere.com/terrainiewer/documents/north_lakes_terrain_v2.png')
            
         });
         var mesh_material = new THREE.MeshPhongMaterial({
