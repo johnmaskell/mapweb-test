@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Django | floodWeb</title>
+   
+    
+    
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css">
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+<script src="https://openlayers.org/en/v4.1.0/build/ol.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/proj4js-compressed.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'coastline/danddcssv2.css' %}" >
+    
+  </head>
+  <body>
+	<header>
+<div class="nav-bar">
+		<a href="#" id="logo"></a>
+
+		<nav>
+
+			<a href="#" id="menu-icon"></a>
+
+			<ul>
+
+				<li><a href="https://johnmaskell.github.io/" class="current">Home</a></li>
+				<li><a href="https://johnmaskell.github.io/html/about.html">About</a></li>
+				<li>
+				<div class="dropdown">	
+				<a href="#">Expertise</a>
+				<div class="dropdown-content">
+
+    <a href="http://johnmaskell.github.io/html/tidal-modelling.html">Tidal modelling</a>
+
+    <a href="http://johnmaskell.github.io/html/wave-modelling.html">Wave modelling</a>
+
+    <a href="http://johnmaskell.github.io/html/sediment-transport.html">Sediment transport</a>
+
+    <a href="http://johnmaskell.github.io/html/coastal-flooding.html">Coastal flooding</a>
+
+    <a href="http://johnmaskell.github.io/html/coastal-defences.html">Coastal defences</a>
+    <a href="http://johnmaskell.github.io/html/harbour-modelling.html">Port modelling</a>
+    <a href="http://johnmaskell.github.io/html/in-house-solutions.html">In-house solutions</a>
+					</div>
+</div>
+				</li>
+				
+				<li><a href="http://johnmaskell.github.io/html/news.html">News</a></li>
+        <li><a href="http://johnmaskell.github.io/html/blog.html">Blog</a></li>
+			</ul>
+
+		</nav>
+		</div>
+	</header>
+
+<div class="spacer"></div>
+<div class="mainContainer">
+<div class="myBanner">
+<div class="imgcontainer">
+<img src="http://gifyu.com/images/myBanner_v2.png"/>
+</div>
+<h2><span>Coastline</span></h2>
+</div>
+
+    
+    <div id="map" class="map"></div>
+
+    </br>
+    {% load static %}    
+    <script src="{%static 'coastline/olscript_draw.js' %}"></script>
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+  </body>
+</html>

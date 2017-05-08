@@ -1,0 +1,19 @@
+{% extends 'coastline/base.html' %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{ form.as_p }}
+{{ form1.as_p }}
+{{ form2.as_p }}
+{{ form3.as_p }}
+<input type="submit" value="Select">
+</form>
+<p>
+{% if result != None %}
+{% load static %}
+
+<a href="{{ result }}" >Download files</a>
+
+{% endif %}
+</p>
+{% endblock %}
