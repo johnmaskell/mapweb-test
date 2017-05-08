@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Django | floodWeb</title>
+   
+    
+    
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.css" type="text/css">
+<link rel="stylesheet" href="style-index-v2.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'meshviewer/danddcss.css' %}" >
+    
+  </head>
+  <body>
+	<header>
+<div class="nav-bar">
+		<a href="#" id="logo"></a>
+
+		<nav>
+
+			<a href="#" id="menu-icon"></a>
+
+			<ul>
+
+				<li><a href="https://johnmaskell.github.io/" class="current">Home</a></li>
+				<li><a href="https://johnmaskell.github.io/html/about.html">About</a></li>
+				<li>
+				<div class="dropdown">	
+				<a href="#">Expertise</a>
+				<div class="dropdown-content">
+
+    <a href="http://johnmaskell.github.io/html/tidal-modelling.html">Tidal modelling</a>
+
+    <a href="http://johnmaskell.github.io/html/wave-modelling.html">Wave modelling</a>
+
+    <a href="http://johnmaskell.github.io/html/sediment-transport.html">Sediment transport</a>
+
+    <a href="http://johnmaskell.github.io/html/coastal-flooding.html">Coastal flooding</a>
+
+    <a href="http://johnmaskell.github.io/html/coastal-defences.html">Coastal defences</a>
+    <a href="http://johnmaskell.github.io/html/harbour-modelling.html">Port modelling</a>
+    <a href="http://johnmaskell.github.io/html/in-house-solutions.html">In-house solutions</a>
+					</div>
+</div>
+				</li>
+				
+				<li><a href="http://johnmaskell.github.io/html/news.html">News</a></li>
+        <li><a href="http://johnmaskell.github.io/html/blog.html">Blog</a></li>
+			</ul>
+
+		</nav>
+		</div>
+	</header>
+
+<div class="spacer"></div>
+<div class="mainContainer">
+<div class="myBanner">
+<div class="imgcontainer">
+<img src="http://gifyu.com/images/myBanner_v2.png"/>
+</div>
+<h2><span>floodWeb</span></h2>
+</div>
+</div>
+    
+    <div id="map" class="map"></div>
+    <div id="info">&nbsp;</div>
+    <h1>Upload a mesh file or drag and drop a kml onto the map.</h1>
+    {% load static %}    
+    <script src="{%static 'meshviewer/olscript_dandd.js' %}"></script>
+    {% block content %}
+    {% endblock %}
+
+
+  </body>
+</html>
