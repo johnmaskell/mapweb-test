@@ -390,20 +390,39 @@ map.getView().fitExtent(extent, map.getSize());
 <script>
 $(function(){
   $('#demo').on('hide.bs.collapse', function () {
-    $('#button').html('<span ></span> +');
+    $('#button').html('<span ></span> + Model options');
   })
   $('#demo').on('show.bs.collapse', function () {
-    $('#button').html('<span ></span> -');
+    $('#button').html('<span ></span> - Model options');
   })
 })
 $(function(){
   $('#initcondiv').on('hide.bs.collapse', function () {
-    $('#button').html('<span ></span> +');
+    $('#button').html('<span ></span> + Run definition');
   })
   $('#initcondiv').on('show.bs.collapse', function () {
-    $('#button').html('<span ></span> -');
+    $('#button').html('<span ></span> - Run definition');
   })
 })
+$(function(){
+  $('#bndryopts').on('hide.bs.collapse', function () {
+    $('#button').html('<span ></span> + Open boundaries');
+  })
+  $('#bndryopts').on('show.bs.collapse', function () {
+    $('#button').html('<span ></span> - Open boundaries');
+  })
+})
+$(function(){
+  $('#addopts').on('hide.bs.collapse', function () {
+    $('#button').html('<span ></span> + Additional options');
+  })
+  $('#addopts').on('show.bs.collapse', function () {
+    $('#button').html('<span ></span> - Additional options');
+  })
+})
+
+
+
 
 </script>
 <script>
@@ -437,7 +456,7 @@ var checkboxtfi = document.querySelector("input[id = id_tidalflats_0]");
 var checkboxtfii = document.querySelector("input[id = id_tidalflats_1]");
 
 var checkboxati = document.querySelector("input[id = id_autocalib_0]");
-
+var checkboxmbi = document.querySelector("input[id = id_mobilealert_0]");
 
 $('#optform').hide();
 checkboxi.onchange = function() {
@@ -485,10 +504,20 @@ checkboxati.onchange = function() {
 if(this.checked) {
     console.log("Checkbox is checked.")
     $('#autotuneoptform').show();
+    }else{
+    $('#autotuneoptform').hide();
   }
 }
 
-
+$('#id_mobileno').hide();
+checkboxmbi.onchange = function() {
+if(this.checked) {
+    console.log("Checkbox is checked.")
+    $('#id_mobileno').show();
+    }else{
+    $('#id_mobileno').hide();
+  }
+}
 
 
 

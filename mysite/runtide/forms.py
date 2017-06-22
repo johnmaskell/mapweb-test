@@ -116,14 +116,35 @@ class AutoTune(forms.Form):
     OPTIONS = (
                 ("1", ""),                               
                 )
-    autocalib = forms.ChoiceField(widget=forms.RadioSelect,
+    autocalib = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                              choices=OPTIONS,label='Automatic calibration')
 
 class AutoTuneOpts(forms.ModelForm):    
     class Meta:
         model = ObsFile
         fields = ('obsfldr','noiters')
-        labels = {"obsfldr":"Upload observations zip file.","noiters":"No. of iterations"} 
+        labels = {"obsfldr":"Upload observations zip file.","noiters":"No. of iterations"}
+
+class BottomFric(forms.Form):
+    OPTIONS = (("0", "No friction"),
+                ("1", "Haaland's law"),
+                ("2", "Chezy's law"),
+                ("3", "Strickler's law"),
+                ("4", "Manning's law"),
+                ("5", "Nikuradse law"),
+                ("6", "Log law of the wall"),
+                ("7", "Colebrooke-White law"),
+                )
+    friclaw = forms.CharField(label='Bottom friction law', widget=forms.Select(choices=OPTIONS))
+    friccoef = forms.FloatField(label='Friction coefficient')
+
+class MobileAlert(forms.Form):
+    OPTIONS = (("1", ""),)
+    mobilealert = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                             choices=OPTIONS,label='Mobile alert') 
+    mobileno = forms.IntegerField(label='Mobile no.')
+    
+    
 
      
     

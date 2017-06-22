@@ -1,7 +1,7 @@
 # Create your views here.
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-from forms import FilterForm, DocumentForm,TitleForm,OutputVarForm,BndryCondsForm,ResultsForm,TimeStep,OutStep,Duration,InitConds,InitValue,TidalFlats,OptTidalFlats,OptLiquidBndry,TidalDatabase,AutoTune,AutoTuneOpts
+from forms import FilterForm, DocumentForm,TitleForm,OutputVarForm,BndryCondsForm,ResultsForm,TimeStep,OutStep,Duration,InitConds,InitValue,TidalFlats,OptTidalFlats,OptLiquidBndry,TidalDatabase,AutoTune,AutoTuneOpts,BottomFric,MobileAlert
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 import os
 import json
@@ -73,6 +73,8 @@ def model_parameters(request):
         tidaldbform = TidalDatabase(request.POST)
         autotuneform = AutoTune(request.POST)
         autotuneoptsform = AutoTuneOpts(request.POST,request.FILES)
+        bottomfric = BottomFric(request.POST)
+        mobilealert = MobileAlert(request.POST)
         if autotuneoptsform.is_valid():
             autotuneoptsform.save()
             mytitle = request.POST['title']
@@ -95,6 +97,8 @@ def model_parameters(request):
         tidaldbform = TidalDatabase()
         autotuneform = AutoTune()
         autotuneoptsform = AutoTuneOpts()
+        bottomfric = BottomFric()
+        mobilealert = MobileAlert()
     geodata = request.session.get('my_data', None)
     meshcentre = request.session.get('centre', None)
     bndrysgeojson = request.session.get('bndrysgeojson')
@@ -103,7 +107,8 @@ def model_parameters(request):
     
     return render(request,'runtide/modelforms.html',{'geodata':geodata,'northbndry':northbndry,'southbndry':southbndry,'meshcentre':meshcentre,'titleform':titleform,'outvarform':outvarform,'resform':resform,
                                                      'tstepform':tstepform,'outstepform':outstepform,'durform':durform,'initcondform':initcondform,'initcondvalform':initcondvalform,
-                                                     'tidalflatsform':tidalflatsform,'opttidalflatsform':opttidalflatsform,'optliqbndryform':optliqbndryform,'tidaldbform':tidaldbform,'autotuneform':autotuneform,'autotuneoptsform':autotuneoptsform,})
+                                                     'tidalflatsform':tidalflatsform,'opttidalflatsform':opttidalflatsform,'optliqbndryform':optliqbndryform,'tidaldbform':tidaldbform,'autotuneform':autotuneform,
+                                                     'autotuneoptsform':autotuneoptsform,'bottomfric':bottomfric,'mobilealert':mobilealert,})
 
 
 
