@@ -1,0 +1,42 @@
+html, body {font-size: 1.05em;line-height: 1.25em;font-family: Helvetica Neue, Helvetica, Arial;background: #FFFFFF;color: #555;width: 100%;height: auto;margin: 0px;padding: 0px;overflow-x: hidden;}
+.nav-bar a {color: #008080;text-decoration: none;font-weight: bold;}
+.nav-bar a:hover {color: #444;}
+header {background: #fff;width: 100%;height: 120px;position: fixed;top: 0;left: 0;border-bottom: 4px solid #008080;z-index: 100;margin-bottom:5px;}
+nav {float: right;padding: 20px;top:80px;}
+#menu-icon {display: hidden;width: 40px;height: 40px;margin-top:20px;background:url(https://qpgzmw-bn1306.files.1drv.com/y3mq187NxKNmBFSaWK3XKXLlG-PCNbsTDGAovgclw6_jww4wjtvK6xzOKoi6mquG5UmhWNRsVGlcAy9xTsro8-bnSYjPx8fyQwyUdjw6F6glc2z1Si4LC80LsxwcvWJ_2KWB0b_iXCPjXiQglcmnb4iOmte1CIhM-C716PGua-9zgo?width=40&height=40&cropmode=none) center;background-color:#008080;}
+.nav-bar a:hover#menu-icon {background-color: #008080;border-radius: 4px 4px 0 0;}
+.nav-bar ul {list-style: none;}
+.nav-bar li {display: inline-block;float: left;padding: 10px;}
+.current {color: #008080;}
+.dropdown{font: 18px/18px Helvetica, Sans-Serif;}
+.dropdown {position: relative;display: inline-block;z-index:1000;}
+.dropdown-content {display: none;position: absolute;background-color: #f9f9f9;min-width: 160px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
+.dropdown-content a {color:#008080;padding: 12px 16px;text-decoration: none;display: block;}
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.myBanner {position:relative;width:100%;height:200px;}
+.imgcontainer{width:100%;margin: 0 auto;height:200px;}
+.myBanner img {height:200px;width:100%;display:block;margin-left:auto;margin-right:auto;overflow: hidden;} 
+.myBanner h2 {position: absolute;top: 115px;left:1%;width:100%;}
+
+h3 {top: 200px;left: 25px;width: 100%;}
+
+
+
+#logo{float: left;width: 300px;height: 75px;margin-top:30px;background: url(http://gifyu.com/images/logo300x75.png) no-repeat center;display: block;background-size: 100% 100%;border:0;} 
+
+#logo {margin-left:16.5%;}
+nav {margin-right:15.5%;}
+.spacer {height:120px;}
+.mainContainer{width:66%;background-color:#FFFFFF;margin: 0 auto;}
+.myBanner {position:relative;width:100%;height:200px;}
+.imgcontainer{width:100%;margin: 0 auto;height:200px;}
+.myBanner img {height:200px;width:100%;display:block;margin-left:auto;margin-right:auto;overflow: hidden;} 
+.myBanner h2 {position: absolute;top: 115px;left:1%;width:100%;}
+h2 span {color: white;font: bold 18px/36px Helvetica, Sans-Serif;letter-spacing: -1px;background: rgb(0, 0, 0); /* fallback color */background: rgba(0, 0, 0, 0.7);padding: 5px;}
+
+
+
+.map {width:100%;height:500px;margin-top:20px;}

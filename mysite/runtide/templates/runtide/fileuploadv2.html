@@ -1,0 +1,14 @@
+{% extends 'runtide/basev4.html' %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data" >
+{% csrf_token %}
+{{ form1.as_p }}
+{{ bndryform.as_p }}
+{{ form.as_p }}
+<input type="submit" value="Select">
+</form>
+</br>
+{% if errorMessage != None %}
+<p>{{ errorMessage }}</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'runtide/modelparameters.html' %}
+{% block content %}
+{% load static %}
+<form action="" method="post" enctype="multipart/form-data" >
+<div class='forms'>
+{% csrf_token %}
+{{ titleform.as_p }}
+{{ bndryform.as_p }}
+{{ resform.as_p }}
+{{ tstepform.as_p }}
+{{ outstepform }}
+</br>
+{{ durform }}
+</br>
+<button id="button" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#initcondiv">
+<span ></span> +
+</button>
+<div id="initcondiv" class="collapse">
+{{ initcondform }}
+<div id="optform">
+{{ initcondvalform }}
+</div>
+</div>
+</br>
+</br>
+<button id="button" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
+<span ></span> +
+</button>
+<div id="demo" class="collapse">
+{{ outvarform.as_p }}
+</div>
+</br>
+{{ tidalflatsform }}
+<div id="optformtf" class='opttidalflats'>
+<a href="#infoTxt" class='show_hide'><img src="{%static "runtide/57836.png" %}" style="width:25px;height:25px;"></a>
+<div class="hiddenDiv">
+<p id="infoTxt">TELEMAC-2D offers several processing options for tidal flat areas.
+First of all, if the user is sure that the model will contain no tidal flats throughout the simulation; these may be deactivated by assigning NO to the keyword TIDAL FLATS (the default value is YES). This may mean that computational time can be saved.
+Tidal flats can be processed in three different ways and several possibilities are offered concerning the treatment of negative depths:
+In the first case, the tidal flats are detected and the free surface gradient is corrected,
+In the second case, the tidal flat areas are removed from the computation. Exposed elements still form part of the mesh but any contributions they make to the computations are cancelled by a so-called "masking" table. The data structure and the computations are thus formally the same to within the value of the masking coefficient. However, in this case, mass-conservation may be slightly altered,
+In the third case, processing is done in the same way as in the first case, but a porosity term is added to half-dry elements. Consequently, the quantity of water is changed and is no longer
+equal to the depth integral over the entire domain but to the depth integral multiplied by the porosity. The user can modify the porosity value determined by the processing in the CORPOR subroutine.
+The type of processing is chosen with the keyword OPTION FOR THE TREATMENT OF TIDAL FLATS which may have a value of 1 or 2, the default value being 1.
+The treatment of the negative depths can be specified using the keyword TREATMENT OF NEGATIVE DEPTHS. Value 1 (default value) is the previously only option consisting in smoothing the negative depths in a conservative way. The option 2 (since release 6.0) is a flux limitation that ensures strictly positive depths. This must be preferably coupled with the new advection schemes able to cope with tidal flats. Value 0 means no treatment.
+The keyword THRESHOLD FOR NEGATIVE DEPTHS (default 0) is used only with the treatment number 1 of negative depths. It specifies the limit of the unchanged value. For example, THRESHOLD FOR NEGATIVE DEPTHS = -0.01 means that depths greater than –1 cm will be left unchanged.
+In certain cases, it may be advisable to limit the lower water depth value. The most common case involves eliminating negative values of H. To do this the user assigns the value YES to the keyword H CLIPPING (default value NO). The keyword MINIMUM VALUE OF DEPTH which has a default value of 0, is used to fix the threshold below which clipping is performed. However, it should be borne in mind that this latter option leads to an increase in the mass of water as it eliminates negative water depths.
+NOTE: finite volumes (EQUATIONS = ‘ST VENANT FV’) does not require any specific treatment for tidal flat. All the options cited previously in this section are useless.</p>
+</div>
+{{ opttidalflatsform }}
+</div>
+</br>
+{{ optliqbndryform.as_p }}
+</br>
+{{ tidaldbform }}
+</br>
+
+{{ autotuneform }}
+<div id="autotuneoptform">
+{{ autotuneoptsform.as_p }}
+</div>
+
+</br>
+<input type="submit" value="Select">
+</div>
+</form>
+{% endblock %}

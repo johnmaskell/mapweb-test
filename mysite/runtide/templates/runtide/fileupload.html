@@ -1,0 +1,8 @@
+{% extends 'meshviewer/basev2.html' %}
+{% block content %}
+<form action="model_form_upload" method="post" enctype="multipart/form-data" >
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Select">
+</form>
+{% endblock %}

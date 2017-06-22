@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Django | floodWeb</title>
+   
+    
+    
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'runtide/danddcssv2.css' %}" >
+
+
+
+    
+  </head>
+  <body>
+	<header>
+<div class="nav-bar">
+		<a href="#" id="logo"></a>
+
+		<nav>
+
+			<a href="#" id="menu-icon"></a>
+
+			<ul>
+
+				<li><a href="https://johnmaskell.github.io/" class="current">Home</a></li>
+				<li><a href="https://johnmaskell.github.io/html/about.html">About</a></li>
+				<li>
+				<div class="dropdown">	
+				<a href="#">Expertise</a>
+				<div class="dropdown-content">
+
+    <a href="http://johnmaskell.github.io/html/tidal-modelling.html">Tidal modelling</a>
+
+    <a href="http://johnmaskell.github.io/html/wave-modelling.html">Wave modelling</a>
+
+    <a href="http://johnmaskell.github.io/html/sediment-transport.html">Sediment transport</a>
+
+    <a href="http://johnmaskell.github.io/html/coastal-flooding.html">Coastal flooding</a>
+
+    <a href="http://johnmaskell.github.io/html/coastal-defences.html">Coastal defences</a>
+    <a href="http://johnmaskell.github.io/html/harbour-modelling.html">Port modelling</a>
+    <a href="http://johnmaskell.github.io/html/in-house-solutions.html">In-house solutions</a>
+					</div>
+</div>
+				</li>
+				
+				<li><a href="http://johnmaskell.github.io/html/news.html">News</a></li>
+        <li><a href="http://johnmaskell.github.io/html/blog.html">Blog</a></li>
+			</ul>
+
+		</nav>
+		</div>
+	</header>
+
+<div class="spacer"></div>
+<div class="mainContainer">
+<div class="myBanner">
+<div class="imgcontainer">
+<img src="http://gifyu.com/images/myBanner_v2.png"/>
+</div>
+<h2><span>Mesh Viewer</span></h2>
+</div>
+
+    
+    <div id="map" class="map"></div>
+    <div id="info">&nbsp;</div>
+ <script>
+$(document).ready(function(){
+      var image = new ol.style.Circle({
+        radius: 5,
+        fill: null,
+        stroke: new ol.style.Stroke({color: 'red', width: 1})
+      });
+
+      var styles = {
+        'Point': new ol.style.Style({
+          image: image
+        }),
+        'LineString': new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'green',
+            width: 1
+          })
+        }),
+        'MultiLineString': new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'green',
+            width: 1
+          })
+        }),
+        'MultiPoint': new ol.style.Style({
+          image: image
+        }),
+        'MultiPolygon': new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'yellow',
+            width: 1
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(255, 255, 0, 0.1)'
+          })
+        }),
+        'Polygon': new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'yellow',
+            lineDash: [4],
+            width: 3
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(0, 0, 255, 0.1)'
+          })
+        }),
+        'GeometryCollection': new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'magenta',
+            width: 2
+          }),
+          fill: new ol.style.Fill({
+            color: 'magenta'
+          }),
+          image: new ol.style.Circle({
+            radius: 10,
+            fill: null,
+            stroke: new ol.style.Stroke({
+              color: 'magenta'
+            })
+          })
+        }),
+        'Circle': new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'red',
+            width: 2
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(255,0,0,0.2)'
+          })
+        })
+      };
+
+      var styleFunction = function(feature) {
+        return styles[feature.getGeometry().getType()];
+      };
+
+      var geojsonObject = {
+        'type': 'FeatureCollection',
+        'crs': {
+          'type': 'name',
+          'properties': {
+            'name': 'EPSG:3857'
+          }
+        },
+        'features': [{
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [0, 0]
+          }
+        }, {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': [[4e6, -2e6], [8e6, 2e6]]
+          }
+        }, {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': [[4e6, 2e6], [8e6, -2e6]]
+          }
+        }, {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Polygon',
+            'coordinates': [[[-5e6, -1e6], [-4e6, 1e6], [-3e6, -1e6]]]
+          }
+        }, {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'MultiLineString',
+            'coordinates': [
+              [[-1e6, -7.5e5], [-1e6, 7.5e5]],
+              [[1e6, -7.5e5], [1e6, 7.5e5]],
+              [[-7.5e5, -1e6], [7.5e5, -1e6]],
+              [[-7.5e5, 1e6], [7.5e5, 1e6]]
+            ]
+          }
+        }, {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'MultiPolygon',
+            'coordinates': [
+              [[[-5e6, 6e6], [-5e6, 8e6], [-3e6, 8e6], [-3e6, 6e6]]],
+              [[[-2e6, 6e6], [-2e6, 8e6], [0, 8e6], [0, 6e6]]],
+              [[[1e6, 6e6], [1e6, 8e6], [3e6, 8e6], [3e6, 6e6]]]
+            ]
+          }
+        }, {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'GeometryCollection',
+            'geometries': [{
+              'type': 'LineString',
+              'coordinates': [[-5e6, -5e6], [0, -5e6]]
+            }, {
+              'type': 'Point',
+              'coordinates': [4e6, -5e6]
+            }, {
+              'type': 'Polygon',
+              'coordinates': [[[1e6, -6e6], [2e6, -4e6], [3e6, -6e6]]]
+            }]
+          }
+        }]
+      };
+
+ 
+
+var map = new ol.Map({
+  
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.BingMaps({
+        imagerySet: 'Aerial',
+        key: 'AqsdQig9tg_VpEvg4FeANtFrqqhmB4XMlbHGO_Ji_-6gf0ihTqU0-np2dU-95G3f'
+      })
+    })
+   
+  ],
+  
+  target: 'map',
+  view: new ol.View({
+    center: [0,0],
+    zoom: 2
+  })
+});
+
+
+var myFeatures = {"type": "FeatureCollection","crs": { "type": "name", "properties": { "name": "EPSG:3857" } },"features": [{ "type": "Feature", "geometry": { "type": "Polygon", "coordinates": [ [ [ -328802.15356627532, 7046809.2544412827 ], [ -327953.89904643019, 7046399.0526494095 ], [ -328084.1428506606, 7047238.1243993612 ], [ -328802.15356627532, 7046809.2544412827] ] ] } }]};
+
+var myFeatures = {"type": "FeatureCollection","crs": { "type": "name", "properties": { "name": "EPSG:3857" } },"features": [{ "type": "Feature", "properties": { "Name": "polyCell", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": "relativeToGround", "tessellate": 1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -328802.15356627532, 7046809.2544412827, 0.0 ], [ -327953.89904643019, 7046399.0526494095, 0.0 ], [ -328084.1428506606, 7047238.1243993612, 0.0 ], [ -328802.15356627532, 7046809.2544412827, 0.0] ] ] } }]}
+
+
+
+
+      var vectorSource = new ol.source.Vector({
+        features: (new ol.format.GeoJSON()).readFeatures(myFeatures)
+        
+      });
+      
+/*      map.addLayer(new ol.layer.Vector({
+        source: vectorSource
+         
+        }));*/
+
+
+
+var testfeatures = JSON.parse("{{ geodata | escapejs | safe }}");
+console.log(testfeatures);
+
+var vectorSource = new ol.source.Vector({
+    features: (new ol.format.GeoJSON()).readFeatures(testfeatures)
+});
+      
+     map.addLayer(new ol.layer.Vector({
+        source: vectorSource      
+         
+        }));
+
+var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+         
+});
+var extent = vectorLayer.getSource().getExtent();
+/*map.getView().fitExtent(extent, map.getSize());*/
+
+
+
+
+      
+
+
+
+
+
+
+});
+
+    </script>
+
+    
+    <h2>Upload a mesh file or drag and drop a kml onto the map.</h2>
+
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+  </body>
+</html>
