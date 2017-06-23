@@ -12,7 +12,7 @@ class DocumentForm(forms.ModelForm):
         labels = {"document":"Upload mesh file"}
 
 class TitleForm(forms.Form):
-    title = forms.CharField(max_length=100,label='Title',initial = 'Enter a title',required=False)
+    title = forms.CharField(max_length=100,label='Title',required=False)
 
 class OutputVarForm(forms.Form):
         OPTIONS = (
@@ -22,7 +22,7 @@ class OutputVarForm(forms.Form):
                 ("H", "Water Depth (m)"),
                 )
         outputvar = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                             choices=OPTIONS,label='Output variables')
+                                             choices=OPTIONS,label='Output variables',required=True)
 
 class BndryCondsForm(forms.ModelForm):
     class Meta:
@@ -32,13 +32,13 @@ class BndryCondsForm(forms.ModelForm):
 
         
 class ResultsForm(forms.Form):
-    resfile = forms.CharField(max_length=100,label='Results file',initial = 'Name results file (e.g. myresults.slf',required=False)
+    resfile = forms.CharField(max_length=100,label='Results file (.slf)',required=False)
 
 class TimeStep(forms.Form):
-    tstep = forms.IntegerField(label='Time step',initial = 'Enter time-step',required=False)
+    tstep = forms.FloatField(label='Time step',initial = 'Enter time-step',required=True)
 
 class OutStep(forms.Form):
-    outint = forms.IntegerField(label='Output interval',required=False)
+    outint = forms.IntegerField(label='Output interval',required=True)
     OPTIONS = (
                 ("hours", "Hours"),
                 ("minutes", "Minutes"),
@@ -47,16 +47,16 @@ class OutStep(forms.Form):
     outunits = forms.CharField(label='units', widget=forms.Select(choices=OPTIONS))
 
 class Duration(forms.Form):
-    startdate = forms.CharField(max_length=50,label='Start date',initial='YYYY/MM/DD HH:MM:SS',required=False)
-    enddate = forms.CharField(max_length=50,label='End date',initial='YYYY/MM/DD HH:MM:SS',required=False)
+    startdate = forms.CharField(max_length=50,label='Start date',initial='YYYY/MM/DD HH:MM:SS',required=True)
+    enddate = forms.CharField(max_length=50,label='End date',initial='YYYY/MM/DD HH:MM:SS',required=True)
     
 class InitConds(forms.Form):
 
     OPTIONS = (
-                ("zeroelevation", "Zero Elevation"),
-                ("constantelevation", "Constant Elevation"),                
-                ("zerodepth", "Zero Depth"),
-                ("constantdepth", "Constant Depth"),
+                ("ZERO ELEVATION", "Zero Elevation"),
+                ("CONSTANT ELEVATION", "Constant Elevation"),                
+                ("ZERO DEPTH", "Zero Depth"),
+                ("CONSTANT DEPTH", "Constant Depth"),
                 )
     initcond = forms.ChoiceField(widget=forms.RadioSelect,
                                              choices=OPTIONS,label='Initial conditions')
@@ -68,8 +68,8 @@ class InitValue(forms.Form):
 class TidalFlats(forms.Form):
 
     OPTIONS = (
-                ("yes", "Yes"),
-                ("no", "No"),               
+                ("YES", "Yes"),
+                ("NO", "No"),               
                 )
     
     tidalflats = forms.ChoiceField(widget=forms.RadioSelect,
@@ -109,7 +109,7 @@ class OptLiquidBndry(forms.Form):
 
 class TidalDatabase(forms.Form):
     CHOICES = (('1', 'JMJ'),('2', 'TPXO'),('3', 'Misc.'),)
-    tidaldatabase = forms.ChoiceField(choices=CHOICES)
+    tidaldatabase = forms.ChoiceField(choices=CHOICES, label='Tidal database')
 
 
 class AutoTune(forms.Form):

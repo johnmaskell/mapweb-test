@@ -1,13 +1,14 @@
-# Create your views here.
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-from forms import FilterForm, DocumentForm,TitleForm,OutputVarForm,BndryCondsForm,ResultsForm,TimeStep,OutStep,Duration,InitConds,InitValue,TidalFlats,OptTidalFlats,OptLiquidBndry,TidalDatabase,AutoTune,AutoTuneOpts,BottomFric,MobileAlert
+from forms import FilterForm,DocumentForm,TitleForm,OutputVarForm,BndryCondsForm,ResultsForm,TimeStep,OutStep,Duration,InitConds,InitValue,TidalFlats,OptTidalFlats,OptLiquidBndry,TidalDatabase,AutoTune,AutoTuneOpts,BottomFric,MobileAlert
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 import os
 import json
+import zipfile
 from telemactools.meshtools import MESHOBJECT
+from telemactools.filehandlers import CASFILE
 
-# Create your views here.
+
 
 def display_map(request):
     errorMessage = None
@@ -29,8 +30,6 @@ def display_map(request):
             meshpath = cwd + '/documents/' + str(meshpath)
             bcpath = cwd + '/documents/' + str(bcpath)
             kwargs["bcfile"] = bcpath
-            print(meshpath)
-            #meshpath = 'C:/North_Sea_Model_v1/Mesh_Final_V1.slf'
             mymesh = MESHOBJECT(meshpath,**kwargs)
             if not mymesh.fileExists:    
                 IOError('%s does not exist. Check file name and path' % self.meshfile)
@@ -40,11 +39,14 @@ def display_map(request):
                 geodata = json.dumps(meshgeojson)
                 meshcentre = mymesh.meshCentre()
                 bndrysgeojson = mymesh.bndry2GEOJSON()                
-                #return HttpResponseRedirect(reverse('model_parameters',args=[geodata]))
                 request.session['my_data'] = geodata
                 meshcentrestr = str(meshcentre[0]) + ","+ str(meshcentre[1])
                 request.session['centre'] = meshcentrestr
                 request.session['bndrysgeojson'] = bndrysgeojson
+                request.session['meshfile'] = meshpath
+                request.session['bcfile'] = bcpath
+
+                
                 return HttpResponseRedirect(reverse('model_parameters'))
     else:
         form1 = DocumentForm()
@@ -58,6 +60,7 @@ def display_map(request):
 
     
 def model_parameters(request):
+    errormsg = ""
     if request.method == 'POST':
         titleform = TitleForm(request.POST)        
         outvarform = OutputVarForm(request.POST)
@@ -74,13 +77,36 @@ def model_parameters(request):
         autotuneform = AutoTune(request.POST)
         autotuneoptsform = AutoTuneOpts(request.POST,request.FILES)
         bottomfric = BottomFric(request.POST)
-        mobilealert = MobileAlert(request.POST)
-        if autotuneoptsform.is_valid():
-            autotuneoptsform.save()
+        mobilealert = MobileAlert(request.POST)        
+        if tstepform.is_valid() and outvarform.is_valid() and outstepform.is_valid() and durform.is_valid() and initcondform.is_valid() and optliqbndryform.is_valid():
+            postitems = {}
+            #autotuneoptsform.save()
             mytitle = request.POST['title']
-            print(mytitle)
+            outvars = request.POST.getlist('outputvar')
             for key, value in request.POST.items():
                 print(key, value)
+                postitems[key] = value
+            postitems['meshfile'] = request.session.get('meshfile',None)
+            postitems['bcfile'] = request.session.get('bcfile',None)
+            postitems['outputvar'] = outvars
+            mycasfile = CASFILE(postitems)
+            mycasfile.writeCasfile()
+            if 'autocalib' in postitems:
+                if postitems['autocalib']=="1":
+                    if autotuneoptsform.is_valid():
+                        autotuneoptsform.save()                    
+                        content = request.FILES['obsfldr']
+                        cwd = os.getcwd()
+                        dirname = cwd + "\\documents\\"
+                        zippath = dirname + str(content)
+                        zipobj = zipfile.ZipFile(zippath)
+                        zipobj.extractall(dirname)
+                        zipobj.close()
+                        os.remove(zippath)
+        else:
+            errormsg = "Please fill in all the fields."
+                    
+                    
             
     else:
         titleform = TitleForm()
@@ -91,7 +117,7 @@ def model_parameters(request):
         durform = Duration()
         initcondform = InitConds()
         initcondvalform = InitValue()
-        tidalflatsform = TidalFlats({'tidalflats':'yes'})
+        tidalflatsform = TidalFlats({'tidalflats':'YES'})
         opttidalflatsform = OptTidalFlats({'opttidalflats':'1','optnegdepths':'1'})
         optliqbndryform = OptLiquidBndry()
         tidaldbform = TidalDatabase()
@@ -105,10 +131,7 @@ def model_parameters(request):
     northbndry = json.dumps(bndrysgeojson['northbndry'])
     southbndry = json.dumps(bndrysgeojson['southbndry'])   
     
-    return render(request,'runtide/modelforms.html',{'geodata':geodata,'northbndry':northbndry,'southbndry':southbndry,'meshcentre':meshcentre,'titleform':titleform,'outvarform':outvarform,'resform':resform,
-                                                     'tstepform':tstepform,'outstepform':outstepform,'durform':durform,'initcondform':initcondform,'initcondvalform':initcondvalform,
-                                                     'tidalflatsform':tidalflatsform,'opttidalflatsform':opttidalflatsform,'optliqbndryform':optliqbndryform,'tidaldbform':tidaldbform,'autotuneform':autotuneform,
-                                                     'autotuneoptsform':autotuneoptsform,'bottomfric':bottomfric,'mobilealert':mobilealert,})
+    return render(request,'runtide/modelforms.html',locals())
 
 
 

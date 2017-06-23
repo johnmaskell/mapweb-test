@@ -65,7 +65,7 @@ display: none;
 .hiddenDiv {border: 1px solid black;border-radius:25px;}
 .infoHdr {margin-left:10px;color:#008080;}
 #infoTxt {margin-left:10px;margin-right:10px;margin-top:10px;margin-bottom:10px;}
-
+.errors p {color:red;}
 .buttontitle {display:inline-block;}
 
 

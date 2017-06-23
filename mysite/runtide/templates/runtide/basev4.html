@@ -65,7 +65,7 @@
 <div class="imgcontainer">
 <img src="http://gifyu.com/images/myBanner_v2.png"/>
 </div>
-<h2><span>Mesh Viewer</span></h2>
+<h2><span>Tidal run</span></h2>
 </div>
 
     
@@ -292,9 +292,34 @@ var extent = vectorLayer.getSource().getExtent();
 });
 
     </script>
+<script>
+$(document).ready(function() {
+
+    $(".hiddenDiv").hide();
+    $(".show_hide").show();
+
+    $('.show_hide').click(function() {
+
+         //$(".hiddenDiv").slideToggle();
+         var isvisible = $(this).next('.hiddenDiv').is(':visible');
+
+         if ( isvisible ) {
+           $(this).next('.hiddenDiv').hide();
+         } else{
+           $(this).next('.hiddenDiv').show();
+         }
+    });
+
+});
+</script>
 
     
-    <h2>Upload a mesh file or drag and drop a kml onto the map.</h2>
+        <a href="#" class='show_hide'><img src="{%static "runtide/57836.png" %}" style="width:30px;height:30px;"></a>
+    <div class="hiddenDiv">
+        <h3 class="infoHdr">Tidal run - demo</h3>
+        <p class="infoTxt">Upload a Telemac mesh file (.slf) and the corresponding boundary conditions file (.cli) or simply click submit to load a demo mesh. This is a demo version of the user interface for carrying out a tidal simulation using boundary conditions derived from satellite altimetry. The tool allows you to build the input file required for a simulation. It doesn't actually launch a simulation as Telemac2d is not hosted on this server.</p>
+    </div>
+    </br>
 
 
     {% block content %}
