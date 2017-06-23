@@ -46,6 +46,6 @@ class BCOBJECT:
             bname.append(splitline[14])
         return
 
-    def 
+   
             
             
